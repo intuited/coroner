@@ -16,6 +16,7 @@ to have an option-style parameter consume all remaining arguments.
 .. _synthesizerpatel: http://stackoverflow.com/users/210613/synthesizerpatel
 """
 from contextlib import contextmanager
+
 def info(type, value, tb):
     import sys
     if hasattr(sys, 'ps1') or not sys.stderr.isatty():
