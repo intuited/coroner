@@ -4,6 +4,13 @@
 Wraps python invocations in code to do post-mortem debugging
 and sundry usefulnesses.
 
+``coroner`` was adapted from a stackoverflow.com `response`_
+by `synthesizerpatel`_.
+
+.. _response: http://stackoverflow.com/questions/3911624/3911725#3911725
+.. _synthesizerpatel: http://stackoverflow.com/users/210613/synthesizerpatel
+
+
 Usage
 -----
 
