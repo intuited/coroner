@@ -10,7 +10,8 @@ which will run that script with a post-mortem debugger enabled.
 
 This ended up being sort of complicated,
 mostly because ``argparse`` doesn't provide a way
-to have an option-style parameter consume all remaining arguments.
+to have an option-style parameter consume all remaining arguments
+or to have all arguments after a given option be considered non-options.
 
 .. _response: http://stackoverflow.com/questions/3911624/3911725#3911725
 .. _synthesizerpatel: http://stackoverflow.com/users/210613/synthesizerpatel
@@ -100,8 +101,8 @@ def parse_args(args):
         elif arg[0] == '-':
             raise OptionError('Unknown option: {0}'.format(arg))
         else:
-            do['filename'] = args.next()
-            do['args'] = [do['filename']] + list(args)
+            do['filename'] = arg
+            do['args'] = [arg] + list(args)
 
     return do
 
@@ -121,7 +122,7 @@ def act(do):
         with swap_argv(do['args']):
             import sys
             sys.excepthook = info
-            new_dict = {}
+            new_dict = {'__name__': '__main__'}
             if do.has_key('file'):
                 exec do['file'] in new_dict
             elif do.has_key('filename'):

@@ -22,7 +22,7 @@ def file_contents(filename):
 
 setup(
     name = "coroner",
-    version = "0.2",
+    version = "0.2.1",
     author = "Ted Tibbetts",
     author_email = "intuited@gmail.com",
     url = "http://github.com/intuited/coroner",
@@ -32,7 +32,7 @@ setup(
         """),
     long_description = file_contents('README.txt'),
     classifiers = format_classifiers("""
-        Development Status :: 3 - Alpha
+        Development Status :: 2 - Pre-Alpha
         Intended Audience :: Developers
         License :: OSI Approved :: BSD License
         Operating System :: OS Independent
