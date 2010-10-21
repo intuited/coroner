@@ -6,17 +6,21 @@ The main point of this module is to pass it via::
 
     python -m coroner some_sketchy_python_script.py
 
-which will run that script with a post-mortem debugger enabled.
+which will run that script with a post-mortem debugger enabled
+as its `sys.excepthook`.
 
-This ended up being sort of complicated,
-mostly because ``argparse`` doesn't provide a way
-to have an option-style parameter consume all remaining arguments
-or to have all arguments after a given option be considered non-options.
+The exception being handled is saved to `coroner.current_exception`
+in a non-thread-safe manner.
 
 .. _response: http://stackoverflow.com/questions/3911624/3911725#3911725
 .. _synthesizerpatel: http://stackoverflow.com/users/210613/synthesizerpatel
 """
 from contextlib import contextmanager
+
+# This ended up being sort of complicated,
+# mostly because ``argparse`` doesn't provide a way
+# to have an option-style parameter consume all remaining arguments
+# or to have all arguments after a given option be considered non-options.
 
 def info(type, value, tb):
     import sys
@@ -29,6 +33,9 @@ def info(type, value, tb):
         # we are NOT in interactive mode, print the exception...
         traceback.print_exception(type, value, tb)
         print
+        # ...and save it...
+        import coroner
+        coroner.current_exception = (type, value, tb)
         # ...then start the debugger in post-mortem mode.
         pdb.pm()
 
